@@ -1,0 +1,22 @@
+{
+  "name": "sweesh-cli",
+  "version": "1.0.0",
+  "description": "Sweesh command line tool",
+  "main": "./src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Sweesh/sweesh-cli.git"
+  },
+  "author": "Sweesh",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Sweesh/sweesh-cli/issues"
+  },
+  "homepage": "https://github.com/Sweesh/sweesh-cli#readme",
+  "dependencies": {
+    "yargs": "^11.0.0"
+  }
+}
