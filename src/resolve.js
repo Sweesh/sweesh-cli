@@ -4,18 +4,18 @@
  * @flow
  */
 
-export type Resolver = {
-    name: string,
-    fn: Function
-}
-
-export type ChangeIntent = {
+export type ChangeIntent = {|
     path: string
-}
+|}
 
-const resolve = async (resolvers: Array<Resolver>, path: string): ChangeIntent => {
+export type Resolver = {|
+    name: string,
+    fn: ({path: string}) => ?ChangeIntent
+|}
+
+async function resolve(resolvers: Array<Resolver>, path: string): Promise<ChangeIntent> {
     let resolved = await Promise.all(resolvers.map(({fn}) => fn({path})));
-    resolved = resolved.map(Boolean);
+    resolved = resolved.filter(Boolean);
     if (!resolved.length) {
         throw Error(`Unable to resolve ${path}`);
     }
