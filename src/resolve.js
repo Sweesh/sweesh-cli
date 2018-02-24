@@ -3,14 +3,13 @@
  * If we can't, this module will throw an Error.
  * @flow
  */
-
 export type ChangeIntent = {|
     path: string
 |}
 
 export type Resolver = {|
     name: string,
-    fn: ({path: string}) => ?ChangeIntent
+    fn: (ResolverArgs: {path: string}) => ?ChangeIntent
 |}
 
 async function resolve(resolvers: Array<Resolver>, path: string): Promise<ChangeIntent> {
