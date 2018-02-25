@@ -7,11 +7,10 @@ export const describe = 'log out of Sweesh account on this computer';
 
 export function handler(argv: any) {
     const username = argv.username;
-    const tokenName = `${username}-token.json`;
-    const tokenExists = loginTokenExists(tokenName);
+    const tokenExists = loginTokenExists(username);
 
     if (tokenExists) {
-        removeLoginToken(tokenName);
+        removeLoginToken(username);
     }
 
     else {

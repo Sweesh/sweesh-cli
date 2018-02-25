@@ -17,12 +17,21 @@ function fileExists(path: string) {
     }
 }
 
+function getTokenName(username: string) {
+    return `${username}-token.json`;
+}
+
+function getConfigDirectoryPath(file: string) {
+    return path.resolve(CONFIG_DIR, file);
+}
+
 export function configDirectoryExists() {
     return fileExists(CONFIG_DIR);
 }
 
-export function loginTokenExists(token: string) {
-    const tokenPath = path.resolve(CONFIG_DIR, token);
+export function loginTokenExists(username: string) {
+    const tokenName = getTokenName(username);
+    const tokenPath = getConfigDirectoryPath(tokenName);
     return fileExists(tokenPath);
 }
 
@@ -36,8 +45,23 @@ export function createConfigDirectory() {
     }
 }
 
-export function removeLoginToken(token: string) {
-    const tokenPath = path.resolve(CONFIG_DIR, token);
+export function createLoginToken(username: string, json: string) {
+    const tokenName = getTokenName(username);
+    const tokenPath = getConfigDirectoryPath(tokenName);
+
+    try {
+        fs.writeFileSync(tokenPath, json);
+    }
+
+    catch (err) {
+        console.error(err);
+    }
+}
+
+export function removeLoginToken(username: string) {
+    const tokenName = getTokenName(username);
+    const tokenPath = getConfigDirectoryPath(tokenName);
+
     try {
         fs.unlinkSync(tokenPath);
     }

@@ -9,8 +9,7 @@ export const describe = 'log in to Sweesh account on this computer';
 export function handler(argv: any) {
     const username = argv.username;
     const password = argv.password;
-    const tokenName = `${username}-token.json`;
-    const tokenExists = loginTokenExists(tokenName);
+    const tokenExists = loginTokenExists(username);
 
     if (!tokenExists) {
         login(username, password);
