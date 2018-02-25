@@ -36,3 +36,32 @@ export function login(username: string, password: string) {
     })
     .catch(err => console.error(err));
 }
+
+export function register(username: string, password: string) {
+    const registrationData = {
+        username,
+        password
+    };
+
+    fetch(`${API_URL}/auth/register`, {
+        method: 'POST',
+        body: JSON.stringify(registrationData),
+        headers: { 'Content-Type': 'application/json' }
+    })
+    .then(res => {
+        if (res.status === 200) {
+            return res.json();
+        }
+
+        else {
+            console.error(`An error occurred during registration. Please try again later`);
+            return null;
+        }
+    })
+    .then(json => {
+        if (json && json.worked) {
+            console.log(`${username} successfully registered`);
+        }
+    })
+    .catch(err => console.error(err));
+}
