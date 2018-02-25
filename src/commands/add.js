@@ -4,7 +4,7 @@ import path from 'path';
 import uuid from 'uuid';
 import fs from 'fs';
 import { promisify } from 'util';
-import addCommand from '../logger';
+// import addCommand from '../logger';
 import resolve from '../utils/resolve';
 import fsResolver from '../utils/fsResolver';
 
@@ -43,5 +43,5 @@ export async function handler(argv: any) {
     // TODO: fetch actual file from server
     writeFile(changeIntent.path, 'Test config file', 'utf8');
     // TODO: write change log to logger
-    addCommand('add', changeIntent, backupFile);
+    // addCommand('add', changeIntent.path, backupFile);
 };
