@@ -1,6 +1,7 @@
 // @flow
 import fetch from 'node-fetch';
-import { createLoginToken } from './utils/file';
+import { createLoginToken, getLoginToken } from './utils/file';
+import GetResponse from './models/get-response';
 
 const API_URL = 'http://financialapps.barngang.co/api';
 
@@ -63,5 +64,30 @@ export function register(username: string, password: string) {
             console.log(`${username} successfully registered`);
         }
     })
+    .catch(err => console.error(err));
+}
+
+export function getConfig(username: string, app: string, cb: ([GetResponse]) => void) {
+    const loginToken = getLoginToken(username);
+
+    fetch(`${API_URL}/app/${app}`, {
+        headers: { 'Authorization': `Bearer <${loginToken.token}>` }
+    })
+    .then(res => {
+        switch (res.status) {
+            case 200:
+                return res.json();
+            case 401:
+                console.error(`${username} does not have a valid token. Log out and log back in`);
+                return null;
+            case 404:
+                console.error(`No config files found for ${app}`);
+                return null;
+            default:
+                console.error('An error occurred getting the config files. Please try again later');
+                return null;
+        }
+    })
+    .then(json => cb(json))
     .catch(err => console.error(err));
 }

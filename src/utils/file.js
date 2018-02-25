@@ -2,6 +2,7 @@
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
+import { Token } from '../models/token';
 
 const HOME_DIR = os.homedir();
 const CONFIG_DIR = path.resolve(HOME_DIR, '.sweesh');
@@ -17,12 +18,23 @@ function fileExists(path: string) {
     }
 }
 
-function getTokenName(username: string) {
-    return `${username}-token.json`;
+function getTokenPath(username: string) {
+    const tokenName = `${username}-token.json`;
+    return path.resolve(CONFIG_DIR, tokenName);
 }
 
-function getConfigDirectoryPath(file: string) {
-    return path.resolve(CONFIG_DIR, file);
+export function getLoginToken(username: string): Token {
+    const tokenPath = getTokenPath(username);
+    let data: Buffer;
+
+    try {
+        data = fs.readFileSync(tokenPath);
+        return JSON.parse(data.toString());
+    }
+
+    catch (err) {
+        console.error(err);
+    }
 }
 
 export function configDirectoryExists() {
@@ -30,8 +42,7 @@ export function configDirectoryExists() {
 }
 
 export function loginTokenExists(username: string) {
-    const tokenName = getTokenName(username);
-    const tokenPath = getConfigDirectoryPath(tokenName);
+    const tokenPath = getTokenPath(username);
     return fileExists(tokenPath);
 }
 
@@ -46,8 +57,7 @@ export function createConfigDirectory() {
 }
 
 export function createLoginToken(username: string, json: string) {
-    const tokenName = getTokenName(username);
-    const tokenPath = getConfigDirectoryPath(tokenName);
+    const tokenPath = getTokenPath(username);
 
     try {
         fs.writeFileSync(tokenPath, json);
@@ -59,8 +69,7 @@ export function createLoginToken(username: string, json: string) {
 }
 
 export function removeLoginToken(username: string) {
-    const tokenName = getTokenName(username);
-    const tokenPath = getConfigDirectoryPath(tokenName);
+    const tokenPath = getTokenPath(username);
 
     try {
         fs.unlinkSync(tokenPath);
