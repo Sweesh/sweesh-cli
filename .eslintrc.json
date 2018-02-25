@@ -3,7 +3,8 @@
     "parser": "babel-eslint",
     "rules": {
         "semi": ["error", "always"],
-        "indent": ["error", 4],
-        "space-before-function-paren": ["error", "never"]
+        "indent": ["error", 4, { "MemberExpression": "off", "SwitchCase": 1 }],
+        "space-before-function-paren": ["error", "never"],
+        "brace-style": ["error", "stroustrup"]
     }
 }
