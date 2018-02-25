@@ -1,4 +1,5 @@
 // @flow
+import resetLogger from '../logger';
 import { loginTokenExists, removeLoginToken } from '../utils/file';
 
 export const command = 'logout <username>';
@@ -6,6 +7,7 @@ export const command = 'logout <username>';
 export const describe = 'log out of Sweesh account on this computer';
 
 export function handler(argv: any) {
+    resetLogger();
     const username = argv.username;
     const tokenExists = loginTokenExists(username);
 
