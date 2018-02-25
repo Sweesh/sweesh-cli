@@ -20,7 +20,8 @@ async function resolve(resolvers: Array<Resolver>, path: string): Promise<Change
     }
     if (resolved.length > 1) {
     // TODO: disambiguate from the CLI
-    } else {
+    }
+    else {
         return resolved[0];
     }
 };

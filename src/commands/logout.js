@@ -1,4 +1,6 @@
 // @flow
+import { loginTokenExists, removeLoginToken } from '../utils/file';
+
 export const command = 'logout <username>';
 
 export const describe = 'log out of Sweesh account on this computer';
@@ -6,10 +8,10 @@ export const describe = 'log out of Sweesh account on this computer';
 export function handler(argv: any) {
     const username = argv.username;
     const tokenName = `${username}-token.json`;
-    const tokenExists = true; // call file utils to check for token
+    const tokenExists = loginTokenExists(tokenName);
 
     if (tokenExists) {
-        // delete the token
+        removeLoginToken(tokenName);
     }
 
     else {
