@@ -1,11 +1,12 @@
-import fs from 'fs';
-
+// import fs from 'fs';
+const fs = require('fs')
 var file = 'log.json';
 var data = { 'commands': [] };
 
 function resetLogger(logfile = 'log.json') {
     file = logfile;
-    fs.writeFileSync(file, JSON.stringify({ 'commands': [] }));
+    data = { 'commands': [] }
+    fs.writeFileSync(file, JSON.stringify(data));
 }
 
 function addCommand(command, oldPath, newPath) {
@@ -17,4 +18,4 @@ function getCommands() {
     return JSON.stringify(data);
 }
 
-module.exports = {resetLogger, addCommand, getCommands};
+
