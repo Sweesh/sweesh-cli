@@ -41,6 +41,7 @@ export async function handler(argv: any) {
     }
     const backupFile = path.join(backupDir, uuid());
     await copyFile(changeIntent.path, backupFile);
+    // TODO: actually grab this from the server
     writeFile(changeIntent.path, 'Test config file', 'utf8');
     addCommand('add', backupFile, changeIntent.path);
 };
