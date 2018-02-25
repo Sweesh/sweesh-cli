@@ -1,5 +1,6 @@
 // @flow
 import fetch from 'node-fetch';
+import { createLoginToken } from './utils/file';
 
 const API_URL = 'something';
 
@@ -17,14 +18,14 @@ export function login(username: string, password: string) {
     .then(res => {
         switch (res.status) {
             case 200:
-                // success, store valid token in ~/.sweesh/
+                createLoginToken(username, res.body);
+                console.log(`${username} successfully logged in`);
                 break;
             case 500:
-                // something went terribly wrong
+                console.error('An internal server error occurred. Please try again later');
                 break;
             default:
-                // invalid credentials (either invalid password or user does not exist)
-                // this could also mean the session is expired, user needs to log out and log back in
+                console.error('Failed to authenticate. Invalid username/password');
                 break;
         }
     })

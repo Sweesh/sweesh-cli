@@ -9,18 +9,19 @@ export type ChangeIntent = {|
 
 export type Resolver = {|
     name: string,
-    fn: (ResolverArgs: {path: string}) => ?ChangeIntent
+    fn: (ResolverArgs: {app: string}) => ?ChangeIntent
 |}
 
-async function resolve(resolvers: Array<Resolver>, path: string): Promise<ChangeIntent> {
-    let resolved = await Promise.all(resolvers.map(({fn}) => fn({path})));
+async function resolve(resolvers: Array<Resolver>, app: string): Promise<ChangeIntent> {
+    let resolved = await Promise.all(resolvers.map(({fn}) => fn({app})));
     resolved = resolved.filter(Boolean);
     if (!resolved.length) {
-        throw Error(`Unable to resolve ${path}`);
+        throw Error(`Unable to resolve ${app}`);
     }
     if (resolved.length > 1) {
-    // TODO: disambiguate from the CLI
+        // TODO: disambiguate from the CLI
     }
+
     else {
         return resolved[0];
     }
