@@ -1,16 +1,18 @@
 import fs from 'fs';
 
-var file = 'log.json';
-var data = { 'commands': [] };
+import { getConfigDirectoryPath } from './utils/file';
 
-function resetLogger(logfile = 'log.json') {
-    file = logfile;
+let file = getConfigDirectoryPath('log.json');
+let data = { 'commands': [] };
+
+function resetLogger(logfile) {
+    file = logfile || file;
     data = { 'commands': [] };
     fs.writeFileSync(file, JSON.stringify(data));
 }
 
 function addCommand(command, oldPath, newPath) {
-    (data['commands']).push({'command': command, 'old_path': oldPath, 'new_path': newPath});
+    data['commands'].push({'command': command, 'old_path': oldPath, 'new_path': newPath});
     fs.writeFileSync(file, JSON.stringify(data));
 }
 
