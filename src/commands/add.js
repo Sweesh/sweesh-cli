@@ -28,7 +28,9 @@ export async function handler(argv: any) {
     let changeIntent = null;
     if (argv.documentPath) {
         changeIntent = await resolve([fsResolver], argv.documentPath);
-    } else {
+    }
+
+    else {
         // TODO: get all the resolvers from the resolvers directory
         // TODO: call resolve with all resolvers and the file name
         changeIntent = await resolve(resolvers, argv.app);

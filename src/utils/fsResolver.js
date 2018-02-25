@@ -11,7 +11,9 @@ export async function fn({app: filePath}) {
         return {
             path: resolvedPath
         };
-    } catch (e) {
+    }
+
+    catch (e) {
         // Unable to find or access the file
         return null;
     }
