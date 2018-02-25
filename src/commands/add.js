@@ -8,10 +8,10 @@ import { promisify } from 'util';
 import resolve from '../utils/resolve';
 import fsResolver from '../utils/fsResolver';
 
-import type {Resolver, ChangeIntent} from '../utils/resolve';
+// import type {Resolver, ChangeIntent} from '../utils/resolve';
 
 const backupDir = path.resolve(process.env.HOME, './.sweesh/backups');
-const pluginsDir = path.resolve(process.env.HOME, './.sweesh/plugins');
+// const pluginsDir = path.resolve(process.env.HOME, './.sweesh/plugins');
 
 const copyFile = promisify(fs.copyFile);
 const writeFile = promisify(fs.writeFile);
