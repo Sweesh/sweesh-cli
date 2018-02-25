@@ -14,7 +14,7 @@ export function handler(argv: any) {
     const username = argv.username;
     const tokenExists = loginTokenExists(username);
     if (tokenExists) {
-        (JSON.parse(getCommands())['commands']).forEach(command => copyFile(command['old_path'], command['new_path']));
+        (JSON.parse(getCommands())['commands']).forEach(command => copyFile(command['new_path'], command['old_path']));
         resetLogger();
         removeLoginToken(username);
         console.log(`${username} successfully logged out`);
