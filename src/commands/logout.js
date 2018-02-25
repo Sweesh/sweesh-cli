@@ -10,11 +10,12 @@ export const command = 'logout <username>';
 
 export const describe = 'log out of Sweesh account on this computer';
 
-export function handler(argv: any) {
+export async function handler(argv: any) {
     const username = argv.username;
     const tokenExists = loginTokenExists(username);
     if (tokenExists) {
-        (JSON.parse(getCommands())['commands']).forEach(command => copyFile(command['new_path'], command['old_path']));
+        var promises = JSON.parse(getCommands())['commands'].map(command => copyFile(command['new_path'], command['old_path']));
+        await Promise.all(promises);
         resetLogger();
         removeLoginToken(username);
         console.log(`${username} successfully logged out`);
