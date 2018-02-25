@@ -11,6 +11,7 @@ export function handler(argv: any) {
 
     if (tokenExists) {
         removeLoginToken(username);
+        console.log(`${username} successfully logged out`);
     }
 
     else {

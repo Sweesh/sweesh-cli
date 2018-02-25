@@ -1,5 +1,4 @@
 // @flow
-import resolve from './resolve'; // eslint-disable-line no-unused-vars
 import { configDirectoryExists, createConfigDirectory } from './utils/file';
 
 // not sure if we can use ES6 imports for yargs, so use require for now

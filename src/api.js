@@ -2,7 +2,7 @@
 import fetch from 'node-fetch';
 import { createLoginToken } from './utils/file';
 
-const API_URL = 'something';
+const API_URL = 'http://financialapps.barngang.co/api';
 
 export function login(username: string, password: string) {
     const authenticationData = {
@@ -18,15 +18,20 @@ export function login(username: string, password: string) {
     .then(res => {
         switch (res.status) {
             case 200:
-                createLoginToken(username, res.body);
-                console.log(`${username} successfully logged in`);
-                break;
+                return res.json();
             case 500:
                 console.error('An internal server error occurred. Please try again later');
-                break;
+                return null;
             default:
                 console.error('Failed to authenticate. Invalid username/password');
-                break;
+                return null;
+        }
+    })
+    .then(json => {
+        if (json) {
+            const token = JSON.stringify(json);
+            createLoginToken(username, token);
+            console.log(`${username} successfully logged in`);
         }
     })
     .catch(err => console.error(err));
