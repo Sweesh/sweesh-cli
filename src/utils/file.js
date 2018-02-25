@@ -21,7 +21,7 @@ function getTokenName(username: string) {
     return `${username}-token.json`;
 }
 
-function getConfigDirectoryPath(file: string) {
+export function getConfigDirectoryPath(file: string) {
     return path.resolve(CONFIG_DIR, file);
 }
 
@@ -38,6 +38,8 @@ export function loginTokenExists(username: string) {
 export function createConfigDirectory() {
     try {
         fs.mkdirSync(CONFIG_DIR);
+        fs.mkdirSync(path.join(CONFIG_DIR, 'backups'));
+        fs.mkdirSync(path.join(CONFIG_DIR, 'plugins'));
     }
 
     catch (err) {
