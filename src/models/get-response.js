@@ -1,5 +1,6 @@
-import { Config } from './config';
-import { PathInfo } from './path-info';
+// @flow
+import Config from './config';
+import PathInfo from './path-info';
 
 export default class GetResponse {
     config: Config;

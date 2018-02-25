@@ -2,7 +2,7 @@
 import path from 'path';
 import fs from 'fs';
 import os from 'os';
-import { Token } from '../models/token';
+import Token from '../models/token';
 
 const HOME_DIR = os.homedir();
 const CONFIG_DIR = path.resolve(HOME_DIR, '.sweesh');

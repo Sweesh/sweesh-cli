@@ -1,4 +1,5 @@
-export class PathInfo {
+// @flow
+export default class PathInfo {
     fileName: string;
     possiblePaths: [string];
     description: string;

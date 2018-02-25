@@ -1,4 +1,5 @@
-export class Token {
+// @flow
+export default class Token {
     token: string;
     expiration: string;
 }
